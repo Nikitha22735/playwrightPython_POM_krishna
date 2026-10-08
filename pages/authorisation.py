@@ -1,7 +1,9 @@
+import allure
 from playwright.sync_api import Page, expect
 
 
 class authorisationPage:
+    @allure.step("__init__")
     def __init__(self, page: Page) -> None:
         self.signInLink = page.get_by_role(
             "link", name="Hello, sign in Account & Lists"
@@ -19,24 +21,30 @@ class authorisationPage:
         )
         self.passwordRequiredError = page.locator("#auth-password-missing-alert")
 
+    @allure.step("openSignIn")
     def openSignIn(self) -> None:
         self.signInLink.click()
 
+    @allure.step("continueWithEmail")
     def continueWithEmail(self, email: str) -> None:
         self.emailInput.fill(email)
         self.continueButton.click()
 
+    @allure.step("submitPassword")
     def submitPassword(self, password: str) -> None:
         self.passwordInput.fill(password)
         self.signInButton.click()
 
+    @allure.step("validateSignedIn")
     def validateSignedIn(self) -> None:
         expect(self.searchBox).to_be_visible()
         expect(self.accountGreeting).to_be_visible()
         expect(self.accountGreeting).not_to_have_text("Hello, sign in")
 
+    @allure.step("validateEmailRequiredError")
     def validateEmailRequiredError(self) -> None:
         expect(self.emailRequiredError).to_be_visible()
 
+    @allure.step("validatePasswordRequiredError")
     def validatePasswordRequiredError(self) -> None:
         expect(self.passwordRequiredError).to_be_visible()
