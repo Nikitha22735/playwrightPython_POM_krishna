@@ -1,8 +1,13 @@
-from playwright.sync_api import Page, expect
-# Page, Context, Playwright, Browser
+from playwright.sync_api import Page
+import pytest
 
+from pages.home import homePage
+
+
+@pytest.mark.regression
 def test_validateHomeUI(page: Page, navigation):
-    expect(page.get_by_role("link", name="Amazon.in")).to_be_visible()
-    expect(page.get_by_role("link", name="Hello, sign in Account & Lists")).to_be_visible()
-    expect(page.get_by_role("link", name="items in cart")).to_be_visible()
-    expect(page.get_by_role("searchbox", name="Search Amazon.in")).to_be_visible()
+    homePageObj = homePage(page)
+    homePageObj.validateAmazonLogoVisibility()
+    homePageObj.validateAccountAndListsVisibility()
+    homePageObj.validateCartLinkVisibility()
+    homePageObj.validateSearchBarVisibility()

@@ -10,3 +10,23 @@ chatGPT, google gemini, claude, gitHubCopilot
 LLM
 
 MCP Server
+
+
+========
+
+
+html --- 
+
+install 
+pip install pytest-html
+
+pytest -m regression -n 2 -v --html=result.html
+start result.html
+
+
+===================
+allure
+
+pip install allure-pytest
+
+pytest -m regression -n 2 -v --headed --alluredir=allureresults

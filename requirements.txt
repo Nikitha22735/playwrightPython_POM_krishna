@@ -3,3 +3,6 @@ pytest
 pytest-playwright
 pytest-xdist
 openpyxl
+python-dotenv 
+pytest-html
+allure-pytest

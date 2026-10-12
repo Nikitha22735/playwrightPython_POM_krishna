@@ -1,0 +1,7 @@
+sample.txt
+__pycache__
+.pytest_cache
+utils\__pycache__
+.env
+allureresults
+assets
