@@ -32,7 +32,7 @@ def navigation(page):
 def pytest_runtest_makereport(item):
     outcome = yield
     status = outcome.get_result()
-    if status.failed:
+    if status.when == "call" and status.failed:
         page = item.funcargs['page']
         screenshot_path = f"screenshots/{item.name}.png"
         page.screenshot(path=screenshot_path)  
