@@ -31,9 +31,12 @@ def navigation(page):
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item):
     outcome = yield
-    status = outcome.get_result()
-    if status.when == "call" and status.failed:
-        page = item.funcargs['page']
-        screenshot_path = f"screenshots/{item.name}.png"
-        page.screenshot(path=screenshot_path)  
-        allure.attach.file(screenshot_path, name="screenshot", attachment_type=allure.attachment_type.PNG)    
+    report = outcome.get_result()
+
+    if report.failed:
+        page = item.funcargs.get("page")
+        # page.screenshot()
+        if page:
+            allure.attach(page.screenshot(), 
+                          name="failedpage", 
+                          attachment_type=allure.attachment_type.PNG)
