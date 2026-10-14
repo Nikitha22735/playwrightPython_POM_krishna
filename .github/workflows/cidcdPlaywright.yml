@@ -8,10 +8,15 @@ on:
     branches:
       - main
  workflow_dispatch:
+ schedule:
+    - cron: '30 21 * 10 5' # min  hr date mnth day-of-week (UTC)
 
 jobs:
  test:
     runs-on: ubuntu-latest
+    env:
+      usName_k: ${{ vars.AMAZONUSERNAME }}
+      pw_k: ${{ secrets.PASSWORD }}
     steps:
       # 1️⃣ Checkout repository
       - name: Checkout Repository from my github
